@@ -3,14 +3,20 @@ import java.time.LocalDate;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class BankDepositExercise {
+	static Logger logger=LoggerFactory.getLogger(WorkingDaysExercise.class);
 	static DateTimeFormatter formatter=DateTimeFormatter.ofPattern("[dd/MM/yyyy][dd-MM-yyyy]");
 	public static String  getMaturityDate(String investmentDate, Period duration){
+		logger.info("Information Message From getMaturityDate Method");
 		LocalDate ld=LocalDate.parse(investmentDate, formatter);
 		String result=ld.plus(duration).format(DateTimeFormatter.ofPattern("dd-MMM-yyyy"));
 		return result;	
 	}
 	public static String getInvestmentPeriod(String investmentDate, String maturityDate){
+		logger.debug("Information Message From getMaturityDate Method");
 		LocalDate invd=LocalDate.parse(investmentDate, formatter);
 		LocalDate matd=LocalDate.parse(maturityDate, formatter);
 		String result=Period.between(invd, matd).getYears()+" year "+Period.between(invd, matd).getMonths()+" months";

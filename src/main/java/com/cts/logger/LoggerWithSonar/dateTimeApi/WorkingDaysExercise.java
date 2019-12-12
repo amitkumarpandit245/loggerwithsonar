@@ -3,10 +3,16 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.*;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class WorkingDaysExercise {
+	static Logger logger=LoggerFactory.getLogger(WorkingDaysExercise.class);
 	public static List<String> getNextMonthsWorkingDays(){
+		logger.info("Inside getNextMonthsWorkingDays Method");
 		long days=LocalDate.now().plusMonths(1).lengthOfMonth();
 		List<LocalDate> list=IntStream.iterate(0, i->i+1).mapToObj(i->(LocalDate.now().plusMonths(1).withDayOfMonth(1)).plusDays(i)).limit(days)
 				.filter(d->!d.getDayOfWeek().equals(d.getDayOfWeek().SATURDAY)).filter(d-> !d.getDayOfWeek().equals(d.getDayOfWeek().SUNDAY))
@@ -20,7 +26,8 @@ public class WorkingDaysExercise {
 		return result;
 	}
 	public static void main(String[] args) {
-		System.out.println("**************************Get Next Month Working days*****************");
+		logger.debug("Printing  getNextMonthsWorkingDays Method Output");
+		//System.out.println("**************************Get Next Month Working days*****************");
 		System.out.println(getNextMonthsWorkingDays());
 	}
 	

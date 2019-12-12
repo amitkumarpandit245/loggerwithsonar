@@ -5,9 +5,13 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class Utility {
-	
+	static Logger logger=LoggerFactory.getLogger(WorkingDaysExercise.class);
 	public static List<LocalTime> getBusSchedule(String start, Duration frequency){
+		logger.info("Inside getBusSchedule Method");
 		String[] ar=start.split(":");
 		long add=frequency.toHours();
 		LocalTime startTime=LocalTime.of(Integer.parseInt(ar[0]), Integer.parseInt(ar[1]));

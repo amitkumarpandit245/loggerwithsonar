@@ -10,10 +10,16 @@ import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.cts.logger.LoggerWithSonar.dateTimeApi.WorkingDaysExercise;
+
 public class NIO2Exercise {
-	
+	static Logger logger=LoggerFactory.getLogger(WorkingDaysExercise.class);
 	public static Tablet getTabletDetails(String file)
 	{
+		logger.debug("Debug Message From getTabletDetails");
 		String[] ar=file.split(",");
 		Tablet obj=new Tablet(ar[0],ar[1],LocalDate.of(Integer.parseInt(ar[2].split("/")[2]),Integer.parseInt(ar[2].split("/")[1]),Integer.parseInt(ar[2].split("/")[0])),LocalDate.of(Integer.parseInt(ar[3].split("/")[2]),Integer.parseInt(ar[3].split("/")[1]),Integer.parseInt(ar[3].split("/")[0])));
 		return obj;
@@ -22,6 +28,7 @@ public class NIO2Exercise {
 	
 	  public static Map<String,LocalDate> getExpiredTablets(String filename, String manufacturer)
 	  { 
+			logger.error("Error Message From getExpiredTablets");
 		  Map<String,LocalDate> res=new LinkedHashMap<>();
 	  try(Stream<String> data=Files.lines(Paths.get("src/data/",filename))){
 		  res=data.map(NIO2Exercise::getTabletDetails)
@@ -37,6 +44,7 @@ public class NIO2Exercise {
 	 }
 	 
 	public static void listAllJavaFiles() {
+		logger.error("Error Message from listAllJavaFiles");
 		try(Stream<Path> data=Files.walk(Paths.get("src"))){
 			data.filter(f -> f.toString().contains(".java"))
 			.forEach(System.out::println);
@@ -46,6 +54,7 @@ public class NIO2Exercise {
 		}
 	}
 	public static boolean searchFile(String fileName,String dir) {
+		logger.trace("Trace Message From searchFile");
 		try(Stream<Path> data=Files.walk(Paths.get(dir))){
 			data.filter(f -> f.toString().contains(fileName))
 			.forEach(System.out::println);
